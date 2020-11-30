@@ -9,7 +9,10 @@ se = requests.session()
 
 post_url = "https://global.ceair.com/portal/v3/flightStatus/queryFlightStatusByDate"
 
+# current date
 ti = datetime.datetime.now().strftime('%Y-%m-%d')
+
+# necessary information for POST request
 payloadData =  {
     "arrival": "SHA",
     "departure": "",
@@ -23,6 +26,7 @@ data = se.post(post_url,data=json.dumps(payloadData),headers=headers,verify=Fals
 #print(data)
 jsonData = json.loads(data).get('resultData')
 result = []
+# only take data we want
 for item in jsonData:
     result.append({
         "flightDate":item.get('flightDate'),
